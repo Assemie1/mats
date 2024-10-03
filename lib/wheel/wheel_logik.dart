@@ -4,4 +4,9 @@ class WheelLogic {
     inputArray.add(input);
     print(inputArray);
   }
+
+   void reset(){
+    inputArray = [];
+  }
+
 }
