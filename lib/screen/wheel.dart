@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-
 import 'package:mats/wheel/wheel_logik.dart';
 
 class RotatingWheel extends StatefulWidget {
@@ -13,13 +12,13 @@ class _RotatingWheelState extends State<RotatingWheel>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  
+
   final wheelLogic = WheelLogic();
   double random = 0.0;
-  String winner ="Mach mal sonst bin ich unnötig";
+  String winner = "Mach mal sonst bin ich unnötig";
   int numberOfSections = 0;
   String input = "";
-  List<Color> appliedColors =[];
+  List<Color> appliedColors = [];
   final List<Color> colors = [
     Colors.red,
     Colors.blue,
@@ -40,13 +39,13 @@ class _RotatingWheelState extends State<RotatingWheel>
 
   List<String> labels = [];
   double spin = 0;
-  
+
   @override
   void initState() {
     appliedColors = colors;
     super.initState();
     random = Random().nextDouble();
-    spin = (random+1) * 4 * 2 * pi;
+    spin = (random + 1) * 4 * 2 * pi;
     // AnimationController initialisieren
     _controller = AnimationController(
       vsync: this,
@@ -57,20 +56,18 @@ class _RotatingWheelState extends State<RotatingWheel>
     _animation = Tween<double>(begin: 0, end: spin).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-
   }
 
-  void spinwheel(){
+  void spinwheel() {
     _controller.reset();
     setState(() {
       appliedColors = colors;
     });
     random = Random().nextDouble();
-    spin = (random+1) * 4 * 2 * pi;
+    spin = (random + 1) * 4 * 2 * pi;
     _animation = Tween<double>(begin: 0, end: spin).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-
   }
 
   @override
@@ -84,7 +81,8 @@ class _RotatingWheelState extends State<RotatingWheel>
       double normalizedSpin = spin % (2 * pi);
       double adjustedSpin = (normalizedSpin + (pi / 2)) % (2 * pi);
       double sectionAngle = 2 * pi / numberOfSections;
-      int winnerSegment = ((2 * pi - adjustedSpin) / sectionAngle).floor() % numberOfSections;
+      int winnerSegment =
+          ((2 * pi - adjustedSpin) / sectionAngle).floor() % numberOfSections;
 
       print(wheelLogic.inputArray[winnerSegment]);
 
@@ -95,29 +93,35 @@ class _RotatingWheelState extends State<RotatingWheel>
     });
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     labels = wheelLogic.inputArray;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         title: const Text("Rotierendes Glücksrad"),
       ),
       body: Center(
         child: Column(children: [
-          TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Was steht zur Wahl?',
+          const SizedBox(height: 75),
+          Padding(
+            padding: EdgeInsets.only(left: 25, right: 25),
+            child: TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Was steht zur Wahl?',
+              ),
+              onChanged: (value) => input = value,
             ),
-            onChanged: (value) => input = value,
           ),
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: 20), // Hier das Padding einstellen
+              padding: const EdgeInsets.only(
+                  top: 25, right: 25), // Hier das Padding einstellen
               child: ElevatedButton(
                 onPressed: () {
                   wheelLogic.saveValue(input); // Speichere den Input
@@ -129,15 +133,17 @@ class _RotatingWheelState extends State<RotatingWheel>
               ),
             ),
           ),
-          Padding(padding: const EdgeInsets.only(top: 30, bottom: 30),
-            child: 
-            GestureDetector(
-              onTap: _startRotation, // Drehung starten, wenn das Glücksrad getappt wird
+          Padding(
+            padding: const EdgeInsets.only(top: 25, bottom: 25),
+            child: GestureDetector(
+              onTap:
+                  _startRotation, // Drehung starten, wenn das Glücksrad getappt wird
               child: AnimatedBuilder(
                 animation: _animation,
                 builder: (context, child) {
                   return Transform.rotate(
-                    angle: _animation.value, // Rotationswinkel basierend auf Animation
+                    angle: _animation
+                        .value, // Rotationswinkel basierend auf Animation
                     child: child,
                   );
                 },
@@ -155,35 +161,33 @@ class _RotatingWheelState extends State<RotatingWheel>
               ),
             ),
           ),
-          Padding(padding: const EdgeInsets.only(bottom: 30),
-            child: 
-            Text(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25),
+            child: Text(
               winner,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               textAlign: TextAlign.center,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
-            child: 
-          Row(
-            children: [
-            ElevatedButton(
-              onPressed: () {
-                spinwheel();
-                },
-              child: const Text("NOCHMAL!"),
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                spinwheel();
-                wheelLogic.reset();
-                numberOfSections = 0;
-                },
-              child: const Text("Zurücksetzen!"),
-            ),
-          ]))
+              padding: const EdgeInsets.only(top: 10, right: 25, left: 25),
+              child: Row(children: [
+                ElevatedButton(
+                  onPressed: () {
+                    spinwheel();
+                    wheelLogic.reset();
+                    numberOfSections = 0;
+                  },
+                  child: const Text("Zurücksetzen!"),
+                ),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    spinwheel();
+                  },
+                  child: const Text("NOCHMAL!"),
+                ),
+              ]))
         ]),
       ),
     );
@@ -191,18 +195,19 @@ class _RotatingWheelState extends State<RotatingWheel>
 
   int calculateNewSections() {
     numberOfSections++;
-    return numberOfSections; 
+    return numberOfSections;
   }
-
 }
-
 
 class WheelPainter extends CustomPainter {
   final int numberOfSections;
   final List<Color> colors;
   final List<String> labels;
 
-  WheelPainter({required this.numberOfSections, required this.colors, required this.labels});
+  WheelPainter(
+      {required this.numberOfSections,
+      required this.colors,
+      required this.labels});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -215,50 +220,51 @@ class WheelPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
 
-    if(numberOfSections == 0){
-      paint.color = colors[0];
+    if (numberOfSections == 0) {
+      paint.color = Colors.white;
       canvas.drawCircle(center, radius, paint);
-    }else{
-    for (int i = 0; i < numberOfSections; i++) {
-      paint.color = colors[i % colors.length];
-      final startAngle = i * sectionAngle;
-      final sweepAngle = sectionAngle;
+    } else {
+      for (int i = 0; i < numberOfSections; i++) {
+        paint.color = colors[i % colors.length];
+        final startAngle = i * sectionAngle;
+        final sweepAngle = sectionAngle;
 
-      // Zeichne das Kreissegment
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startAngle,
-        sweepAngle,
-        true,
-        paint,
-      );
+        // Zeichne das Kreissegment
+        canvas.drawArc(
+          Rect.fromCircle(center: center, radius: radius),
+          startAngle,
+          sweepAngle,
+          true,
+          paint,
+        );
 
-      // Berechne die Position für den Text
-      final textAngle = startAngle + sweepAngle / 2;
-      final textX = center.dx + radius / 2 * cos(textAngle);
-      final textY = center.dy + radius / 2 * sin(textAngle);
+        // Berechne die Position für den Text
+        final textAngle = startAngle + sweepAngle / 2;
+        final textX = center.dx + radius / 2 * cos(textAngle);
+        final textY = center.dy + radius / 2 * sin(textAngle);
 
-      // Erstelle den Text
-      final textSpan = TextSpan(
-        text: labels[i],
-        style: TextStyle(color: Colors.white, fontSize: 20),
-      );
+        // Erstelle den Text
+        final textSpan = TextSpan(
+          text: labels[i],
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        );
 
-      // Richte den Text aus
-      textPainter.text = textSpan;
-      textPainter.layout();
+        // Richte den Text aus
+        textPainter.text = textSpan;
+        textPainter.layout();
 
-      // Zeichne den Text in der Mitte des Segments
-      canvas.save();
-      canvas.translate(textX, textY);
-      canvas.rotate(textAngle); // Text anpassen, sodass er richtig rotiert ist
-      textPainter.paint(
-        canvas,
-        Offset(-textPainter.width / 2, -textPainter.height / 2),
-      );
-      canvas.restore();
+        // Zeichne den Text in der Mitte des Segments
+        canvas.save();
+        canvas.translate(textX, textY);
+        canvas
+            .rotate(textAngle); // Text anpassen, sodass er richtig rotiert ist
+        textPainter.paint(
+          canvas,
+          Offset(-textPainter.width / 2, -textPainter.height / 2),
+        );
+        canvas.restore();
+      }
     }
-  }
   }
 
   @override
