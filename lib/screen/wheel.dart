@@ -20,12 +20,7 @@ class _RotatingWheelState extends State<RotatingWheel>
   String input = "";
   List<Color> appliedColors = [];
   final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
-    Colors.yellow,
+    Colors.white
   ];
 
   final List<Color> colorsAfter = [
@@ -113,6 +108,8 @@ class _RotatingWheelState extends State<RotatingWheel>
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Was steht zur Wahl?',
+                fillColor: Color.fromARGB(255, 217, 217, 217),
+                filled: true,
               ),
               onChanged: (value) => input = value,
             ),
@@ -179,6 +176,9 @@ class _RotatingWheelState extends State<RotatingWheel>
                     numberOfSections = 0;
                   },
                   child: const Text("Zurücksetzen!"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 179, 38, 30)
+                  ),
                 ),
                 Spacer(),
                 ElevatedButton(
@@ -221,7 +221,7 @@ class WheelPainter extends CustomPainter {
     );
 
     if (numberOfSections == 0) {
-      paint.color = Colors.white;
+      paint.color = const Color.fromARGB(255, 217, 217, 217);
       canvas.drawCircle(center, radius, paint);
     } else {
       for (int i = 0; i < numberOfSections; i++) {

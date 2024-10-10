@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mats/screen/home.dart';
-import 'package:mats/screen/operator.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Operator(),
+    home: Home(),
     theme: myTheme,
   ));
 }

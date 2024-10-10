@@ -146,7 +146,8 @@ class HomeState extends State<Home> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 40,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
                     ),
                     maxLines: 4,
                     wrapWords: false,
