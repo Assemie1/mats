@@ -1,223 +1,223 @@
 {
-    "Angriffsoperatoren": [
+    "attacker": [
       {
-        "Operatorname": "Glaz",
+        "operatorname": "Glaz",
         "primary": ["Ots-03"],
         "secondary": ["BEARING 9", "PMM", "GONNE-6"],
         "gadget": ["Smoke Grenade", "Claymore", "Frag Grenade"]
       },
       {
-        "Operatorname": "Fuze",
+        "operatorname": "Fuze",
         "primary": ["AK-12", "6P41", "Ballistic Shield"],
         "secondary": ["PMM", "GSH-18"],
         "gadget": ["Breach", "Stun Grenade"]
       },
       {
-        "Operatorname": "IQ",
+        "operatorname": "IQ",
         "primary": ["G8A1", "AUG A2", "552 Commando"],
         "secondary": ["P12"],
         "gadget": ["Breach Charge", "Claymore", "Frag Grenade"]
       },
       {
-        "Operatorname": "Blitz",
+        "operatorname": "Blitz",
         "primary": ["G52-Tactical-Shield"],
         "secondary": ["P12"],
         "gadget": ["Breach Charge", "Smoke Grenade"]
       },
       {
-        "Operatorname": "Twitch",
+        "operatorname": "Twitch",
         "primary": ["F2", "SG-CQB", "417"],
         "secondary": ["P9", "LFP586"],
         "gadget": ["Smoke Grenade", "Claymore"]
       },
       {
-        "Operatorname": "Montagne",
+        "operatorname": "Montagne",
         "primary": ["LE ROC SHIELD"],
         "secondary": ["P9", "LFP586"],
         "gadget": ["Hard Breach Charge", "Smoke Grenade", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Thermite",
+        "operatorname": "Thermite",
         "primary": ["556xi", "M1014"],
         "secondary": ["5.7 USG", "M45 Meusoc"],
         "gadget": ["Stun Grenade", "Smoke Grenade"]
       },
       {
-        "Operatorname": "Ash",
+        "operatorname": "Ash",
         "primary": ["R4-C", "G36C"],
         "secondary": ["5.7 USG", "M45 Meusoc"],
         "gadget": ["Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Thatcher",
+        "operatorname": "Thatcher",
         "primary": ["AR33", "L85A2", "M590A1"],
         "secondary": ["P226 MK 25"],
         "gadget": ["Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Sledge",
+        "operatorname": "Sledge",
         "primary": ["L85A2", "M590A1"],
         "secondary": ["D-50"],
         "gadget": ["Frag Grenade", "Stun Grenade", "Claymore"]
       },
       {
-        "Operatorname": "Buck",
+        "operatorname": "Buck",
         "primary": ["C8-SFW", "CAMRS"],
         "secondary": ["MK1 9mm"],
         "gadget": ["Breaching Charge", "Stun Grenade"]
       },
       {
-        "Operatorname": "Blackbeard",
+        "operatorname": "Blackbeard",
         "primary": ["MK17 CQB", "SR-25"],
         "secondary": ["MK1 9mm"],
         "gadget": ["Breaching Charge", "Stun Grenade"]
       },
       {
-        "Operatorname": "Capitao",
+        "operatorname": "Capitao",
         "primary": ["M249", "PARA-308"],
         "secondary": ["GONNE-6", "PRB92"],
         "gadget": ["Breaching Charge", "Claymore", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Hibana",
+        "operatorname": "Hibana",
         "primary": ["Type 89", "SuperNova"],
         "secondary": ["P229", "BEARING 9"],
         "gadget": ["Stun Grenade", "Breach Charge"]
       },
       {
-        "Operatorname": "Jackal",
+        "operatorname": "Jackal",
         "primary": ["C7E", "PDW9", "ITA12L"],
         "secondary": ["USP40", "ITA12S"],
         "gadget": ["Claymore", "Smoke Grenade"]
       },
       {
-        "Operatorname": "Ying",
+        "operatorname": "Ying",
         "primary": ["T-95 LSW", "SIX12"],
         "secondary": ["Q-929"],
         "gadget": ["Hard Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Zofia",
+        "operatorname": "Zofia",
         "primary": ["LMG-E", "M762"],
         "secondary": ["RG15"],
         "gadget": ["Hard Breach Charge", "Smoke Grenade"]
       },
       {
-        "Operatorname": "Dokkaebi",
+        "operatorname": "Dokkaebi",
         "primary": ["Mk14 EBR", "BosG 12.2"],
         "secondary": ["C75 Auto", "SMG-12", "GONNE-6"],
         "gadget": ["Smoke Grenade", "Stun Grenade", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Finka",
+        "operatorname": "Finka",
         "primary": ["SPEAR .308", "6P41", "SASG-12"],
         "secondary": ["PMM", "GSH-18"],
         "gadget": ["Smoke Grenade", "Stun Grenade", "Frag Grenade"]
       },
       {
-        "Operatorname": "Lion",
+        "operatorname": "Lion",
         "primary": ["V308", "SG-CQB", "417"],
         "secondary": ["P9", "LFP586"],
         "gadget": ["Claymore", "Stun Grenade", "Frag Grenade"]
       },
       {
-        "Operatorname": "Maverick",
+        "operatorname": "Maverick",
         "primary": ["M4", "AR-15.50"],
         "secondary": ["1911 Tacops"],
         "gadget": ["Smoke Grenade", "Stun Grenade", "Claymore"]
       },
       {
-        "Operatorname": "Nomad",
+        "operatorname": "Nomad",
         "primary": ["ARX200", "AK-74M"],
         "secondary": ["PRB92", ".44 MAG SEMI-AUTO"],
         "gadget": ["Breach Charge", "Stun Grenade"]
       },
       {
-        "Operatorname": "Gridlock",
+        "operatorname": "Gridlock",
         "primary": ["F90", "M249 SAW"],
         "secondary": ["Super Shorty", "SDP 9mm"],
         "gadget": ["Frag Grenade", "Smoke Grenade", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Nokk",
+        "operatorname": "Nokk",
         "primary": ["FMG-9", "SIX12-SD"],
         "secondary": ["5.7 USG", "D-50"],
         "gadget": ["Frag Grenade", "Hard Breach Charge", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Amaru",
+        "operatorname": "Amaru",
         "primary": ["G8A1", "SuperNova"],
         "secondary": ["GONNE-6", "SMG-11", "ITA12S"],
         "gadget": ["Hard Breach Charge", "Stun Grenade"]
       },
       {
-        "Operatorname": "Kali",
+        "operatorname": "Kali",
         "primary": ["CSRX 300"],
         "secondary": ["SPSMG9", "C75 Auto", "P226 MK 25"],
         "gadget": ["Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Iana",
+        "operatorname": "Iana",
         "primary": ["ARX200", "G36C"],
         "secondary": ["GONNE-6", "MK1 9mm"],
         "gadget": ["Smoke Grenade", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Ace",
+        "operatorname": "Ace",
         "primary": ["M1014", "AK-12"],
         "secondary": [ "P9"],
         "gadget": ["Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Zero",
+        "operatorname": "Zero",
         "primary": ["MP7", "SC3000K"],
         "secondary": ["GONNE-6", "5.7 USG"],
         "gadget": ["Hard Breach Charge", "Claymore"]
       },
       {
-        "Operatorname": "Flores",
+        "operatorname": "Flores",
         "primary": ["AR33", "SR-25"],
         "secondary": ["GSH-18"],
         "gadget": ["Stun Grenade", "Claymore"]
       },
       {
-        "Operatorname": "Osa",
+        "operatorname": "Osa",
         "primary": ["556xi", "PDW9"],
         "secondary": ["PMM"],
         "gadget": ["Frag Grenade", "Claymore", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Sense",
+        "operatorname": "Sense",
         "primary": ["417", "POF9"],
         "secondary": [ "SDP 9mm"],
         "gadget": ["Breach Charge", "Claymore", "Frag Grenade"]
       },
       {
-        "Operatorname": "Grim",
+        "operatorname": "Grim",
         "primary": ["552 Commando", "SG-CQB"],
         "secondary": [ "P229", "Bailiff 410"],
         "gadget": ["Breach Charge", "Claymore", "Impact EMP Grenade"]
       },
       {
-        "Operatorname": "Brava",
+        "operatorname": "Brava",
         "primary": ["PARA-308", "CAMRS"],
         "secondary": ["Super Shorty", "USP40"],
         "gadget": ["Smoke Grenade", "Claymore"]
       },
       {
-        "Operatorname": "Ram",
+        "operatorname": "Ram",
         "primary": ["R4-C", "LMG-E"],
         "secondary": ["ITA12S", "MK1 9mm"],
         "gadget": ["Smoke Grenade", "Stun Grenade"]
       },
       {
-        "Operatorname": "Deimos",
+        "operatorname": "Deimos",
         "primary": ["AK-74M", "M590A1"],
         "secondary": [".44 Vendetta"],
         "gadget": ["Frag Grenade", "Hard Breach Charge"]
       },
       {
-        "Operatorname": "Striker",
+        "operatorname": "Striker",
         "primary": ["M4", "M249"],
         "secondary": [ "5.7 USG", "ITA12S"],
         "gadget": ["Breach Charge", "Claymore", "Frag Grenade", "Smoke Grenade", "Stun Grenade", "Impact EMP Grenade", "Hard Breach Charge"]

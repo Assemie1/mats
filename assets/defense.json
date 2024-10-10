@@ -1,0 +1,226 @@
+{
+  "defender": [
+    {
+      "operatorname": "Kapkan",
+      "primary": ["9X19VSN", "SASG-12"],
+      "secondary": ["PMM", "GSH-18"],
+      "gadget": ["Nitro Cell", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Tachanka",
+      "primary": ["9X19VSN", "DP27"],
+      "secondary": ["PMM", "GSH-18", "Bearing 9"],
+      "gadget": ["Barbed Wire", "Proximity Alarm", "Deployable Shield"]
+    },
+    {
+      "operatorname": "Bandit",
+      "primary": ["MP7", "M870"],
+      "secondary": ["P12"],
+      "gadget": ["Barbed Wire", "Nitro Cell"]
+    },
+    {
+      "operatorname": "Jäger",
+      "primary": ["M870", "416-C Carbine"],
+      "secondary": ["P12"],
+      "gadget": ["Observation Blocker", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Rook",
+      "primary": ["MP5", "P90", "SG-CQB"],
+      "secondary": ["P9", "LFP586"],
+      "gadget": ["Proximity Alarm", "Observation Blocker", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Doc",
+      "primary": ["MP5", "P90", "SG-CQB"],
+      "secondary": ["P9", "LFP586", "Bailiff 410"],
+      "gadget": ["Bulletproof Camera", "Barbed Wire"]
+    },
+    {
+      "operatorname": "Pulse",
+      "primary": ["UMP45", "M1014"],
+      "secondary": ["5.7 USG", "M45 Meusoc"],
+      "gadget": ["Nitro Cell", "Deployable Shield", "Observation Blocker"]
+    },
+    {
+      "operatorname": "Castle",
+      "primary": ["UMP45", "M1014"],
+      "secondary": ["5.7 USG", "M45 Meusoc", "Super Shorty"],
+      "gadget": ["Proximity Alarm", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Smoke",
+      "primary": ["FMG-9", "M590A1"],
+      "secondary": ["P226 Mk 25", "SMG-11"],
+      "gadget": ["Barbed Wire", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Mute",
+      "primary": ["MP5K", "M590A1"],
+      "secondary": ["P226 Mk 25", "SMG-11"],
+      "gadget": ["Bulletproof Camera", "Nitro Cell"]
+    },
+    {
+      "operatorname": "Frost",
+      "primary": ["Super 90", "9mm C1"],
+      "secondary": ["ITA12S", "MK1 9mm"],
+      "gadget": ["Bulletproof Camera", "Deployable Shield"]
+    },
+    {
+      "operatorname": "Valkyrie",
+      "primary": ["MPX", "SPAS-12"],
+      "secondary": ["D-50"],
+      "gadget": ["Nitro Cell", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Caveira",
+      "primary": ["M12", "SPAS-15"],
+      "secondary": ["Luison"],
+      "gadget": ["Impact Grenade", "Proximity Alarm", "Observation Blocker"]
+    },
+    {
+      "operatorname": "Echo",
+      "primary": ["MP5SD", "Supernova"],
+      "secondary": ["Bearing 9", "P229"],
+      "gadget": ["Deployable Shield", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Mira",
+      "primary": ["Vector .45 ACP", "ITA12L"],
+      "secondary": ["USP40", "ITA12S"],
+      "gadget": ["Nitro Cell", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Lesion",
+      "primary": ["T-5 SMG", "SIX12 SD"],
+      "secondary": ["Q-929", "Super Shorty"],
+      "gadget": ["Impact Grenade", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Ela",
+      "primary": ["Scorpion Evo 3 A1", "FO-12"],
+      "secondary": ["RG15"],
+      "gadget": ["Barbed Wire", "Deployable Shield", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Vigil",
+      "primary": ["K1A", "BOSG 12.2"],
+      "secondary": ["C75 Auto", "SMG-12"],
+      "gadget": ["Bulletproof Camera", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Alibi",
+      "primary": ["MX4 Storm", "ACS12"],
+      "secondary": ["Keratos .357", "Bailiff 410"],
+      "gadget": ["Proximity Alarm", "Observation Blocker"]
+    },    
+    {
+      "operatorname": "Maestro",
+      "primary": ["ALDA 5.56", "ACS12"],
+      "secondary": ["Keratos .357", "Bailiff 410"],
+      "gadget": ["Barbed Wire", "Impact Grenade", "Observation Blocker"]
+    },
+    {
+      "operatorname": "Clash",
+      "primary": ["CCE Shield"],
+      "secondary": ["P-10C", "SPSMG9", "Super Shorty"],
+      "gadget": ["Impact Grenade", "Barbed Wire", "Deployable Shield"]
+    },
+    {
+      "operatorname": "Kaid",
+      "primary": ["AUG A3", "TCSG12"],
+      "secondary": [".44 Mag Semi-Auto", "LFP586"],
+      "gadget": ["Barbed Wire", "Nitro Cell", "Observation Blocker"]
+    },
+    {
+      "operatorname": "Mozzie",
+      "primary": ["Commando 9", "P10 RONI"],
+      "secondary": ["SDP 9mm"],
+      "gadget": ["Nitro Cell", "Barbed Wire"]
+    },
+    {
+      "operatorname": "Warden",
+      "primary": ["M590A1", "MPX"],
+      "secondary": ["P-10C", "SMG-12"],
+      "gadget": ["Nitro Cell", "Deployable Shield", "Observation Blocker"]
+    },
+    {
+      "operatorname": "Goyo",
+      "primary": ["Vector .45 ACP", "TCSG12"],
+      "secondary": ["P229"],
+      "gadget": ["Impact Grenade", "Bulletproof Camera", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Wamai",
+      "primary": ["AUG A2", "MP5K"],
+      "secondary": ["P12", "Keratos .357"],
+      "gadget": ["Impact Grenade", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Oryx",
+      "primary": ["SPAS-12", "T-5 SMG"],
+      "secondary": ["Bailiff 410", "USP40"],
+      "gadget": ["Barbed Wire", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Melusi",
+      "primary": ["MP5", "Super 90"],
+      "secondary": ["RG15"],
+      "gadget": ["Impact Grenade", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Aruni",
+      "primary": ["P10 RONI", "MK 14 EBR"],
+      "secondary": ["PRB92"],
+      "gadget": ["Barbed Wire", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Thunderbird",
+      "primary": ["Spear .308", "SPAS-15"],
+      "secondary": ["Bearing 9", "Q-929"],
+      "gadget": ["Barbed Wire", "Bulletproof Camera", "Deployable Shield"]
+    },
+    {
+      "operatorname": "Thorn",
+      "primary": ["UZK50GI", "M870"],
+      "secondary": ["C75 Auto", "1911 Tacops"],
+      "gadget": ["Barbed Wire", "Deployable Shield"]
+    },
+    {
+      "operatorname": "Azami",
+      "primary": ["9X19VSN", "ACS12"],
+      "secondary": ["D-50"],
+      "gadget": ["Barbed Wire", "Impact Grenade"]
+    },
+    {
+      "operatorname": "Solis",
+      "primary": ["P90", "ITA12L"],
+      "secondary": ["SMG-11"],
+      "gadget": ["Proximity Alarm", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Fenrir",
+      "primary": ["MP7", "SASG-12"],
+      "secondary": ["Bailiff 410", "5.7 USG"],
+      "gadget": ["Observation Blocker", "Bulletproof Camera"]
+    },
+    {
+      "operatorname": "Tubarao",
+      "primary": ["MPX", "AR 15.50"],
+      "secondary": ["P226 Mk 25"],
+      "gadget": ["Nitro Cell", "Proximity Alarm"]
+    },
+    {
+      "operatorname": "Sentry",
+      "primary": ["Commando 9", "M870"],
+      "secondary": ["C75 Auto", "Super Shorty"],
+      "gadget": ["Barbed Wire", "Bulletproof Camera", "Deployable Shield", "Observation Blocker", "Impact Grenade","Nitro Cell","Proximity Alarm"]
+    },
+    {
+      "operatorname": "Skopos",
+      "primary": ["PCX-33"],
+      "secondary": ["P229"],
+      "gadget": ["Impact Grenade", "Proximity Alarm"]
+    }
+  ]
+}
