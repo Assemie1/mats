@@ -94,9 +94,6 @@ class _RotatingWheelState extends State<RotatingWheel>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         title: const Text("Rotierendes Glücksrad"),
       ),
       body: Center(
