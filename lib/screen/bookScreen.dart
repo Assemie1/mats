@@ -159,28 +159,6 @@ class BookScreenState extends State<BookScreen> {
                         ),
                       ),
                 const SizedBox(height: 50),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 25, right: 25), // Hier das Padding einstellen
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateBook()),
-                          ).then((_) => loadBooks());
-                        },
-                        child: const Text("Erstellen"),
-                      ),
-                    )),
-                ElevatedButton(
-                  onPressed: () {
-                    BookManager().resetNewBookJson();
-                  },
-                  child: const Text("reset"),
-                ),
               ],
             ),
             Column(
@@ -280,27 +258,19 @@ class BookScreenState extends State<BookScreen> {
                         ),
                       ),
                 const SizedBox(height: 50),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 25,
-                          right: 25,
-                          bottom: 25), // Hier das Padding einstellen
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateBook()),
-                          ).then((_) => loadBooks());
-                        },
-                        child: const Text("Erstellen"),
-                      ),
-                    ))
               ],
             ),
           ]),
+          floatingActionButton: FloatingActionButton(
+            tooltip: 'Increment',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateBook()),
+              ).then((_) => loadBooks());
+            },
+            child: const Icon(Icons.add, color: Colors.white, size: 28),
+          ),
         ),
       ),
     );
