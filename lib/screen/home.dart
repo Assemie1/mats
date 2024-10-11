@@ -27,7 +27,7 @@ class HomeState extends State<Home> {
     final String response = await rootBundle.loadString('assets/wisdom.json');
     final data = await json.decode(response);
 
-    int index = random.nextInt(data['quotes'].length + 1);
+    int index = random.nextInt(data['quotes'].length);
     setState(() {
       wisdom = data['quotes'][index]['quote'];
     });

@@ -13,6 +13,8 @@ class _RotatingWheelState extends State<RotatingWheel>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  final formKey = GlobalKey<FormState>();
+
   final wheelLogic = WheelLogic();
   double random = 0.0;
   String winner = "Mach mal sonst bin ich unnötig";
@@ -20,7 +22,12 @@ class _RotatingWheelState extends State<RotatingWheel>
   String input = "";
   List<Color> appliedColors = [];
   final List<Color> colors = [
-    Colors.white
+    Color.fromARGB(255, 244, 67, 54),
+    const Color.fromARGB(255, 33, 149, 243),
+    const Color.fromARGB(255, 76, 175, 79),
+    const Color.fromARGB(255, 255, 153, 0),
+    const Color.fromARGB(255, 155, 39, 176),
+    const Color.fromARGB(255, 255, 235, 59),
   ];
 
   final List<Color> colorsAfter = [
@@ -97,95 +104,116 @@ class _RotatingWheelState extends State<RotatingWheel>
         title: const Text("Rotierendes Glücksrad"),
       ),
       body: Center(
-        child: Column(children: [
-          const SizedBox(height: 75),
-          Padding(
-            padding: EdgeInsets.only(left: 25, right: 25),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Was steht zur Wahl?',
-                fillColor: Color.fromARGB(255, 217, 217, 217),
-                filled: true,
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 75),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: TextFormField(
+                  style:
+                      const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    helperText: "Auswahl",
+                    hintText: 'Was steht zur Wahl?',
+                    fillColor: Color.fromARGB(255, 217, 217, 217),
+                    filled: true,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Da muss schon was stehen';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) => input = value,
+                ),
               ),
-              onChanged: (value) => input = value,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 25, right: 25), // Hier das Padding einstellen
-              child: ElevatedButton(
-                onPressed: () {
-                  wheelLogic.saveValue(input); // Speichere den Input
-                  setState(() {
-                    numberOfSections = calculateNewSections();
-                  });
-                },
-                child: const Text("Wert speichern"),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 25, right: 25),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        wheelLogic.saveValue(input); // Save the input
+                        setState(() {
+                          numberOfSections = calculateNewSections();
+                        });
+                      }
+                    },
+                    child: const Text("Wert speichern"),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 25, bottom: 25),
-            child: GestureDetector(
-              onTap:
-                  _startRotation, // Drehung starten, wenn das Glücksrad getappt wird
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) {
-                  return Transform.rotate(
-                    angle: _animation
-                        .value, // Rotationswinkel basierend auf Animation
-                    child: child,
-                  );
-                },
-                child: Container(
-                  width: 300,
-                  height: 300,
-                  child: CustomPaint(
-                    painter: WheelPainter(
-                      numberOfSections: numberOfSections,
-                      colors: appliedColors,
-                      labels: labels,
+              const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.only(top: 25, bottom: 25),
+                child: GestureDetector(
+                  onTap: _startRotation, // Start rotation on tap
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (context, child) {
+                      return Transform.rotate(
+                        angle: _animation
+                            .value, // Rotation angle based on animation
+                        child: child,
+                      );
+                    },
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      child: CustomPaint(
+                        painter: WheelPainter(
+                          numberOfSections: numberOfSections,
+                          colors: appliedColors,
+                          labels: labels,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 25),
-            child: Text(
-              winner,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.only(top: 10, right: 25, left: 25),
-              child: Row(children: [
-                ElevatedButton(
-                  onPressed: () {
-                    spinwheel();
-                    wheelLogic.reset();
-                    numberOfSections = 0;
-                  },
-                  child: const Text("Zurücksetzen!"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 179, 38, 30)
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: Text(
+                  winner,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 25),
+                  textAlign: TextAlign.center,
                 ),
-                Spacer(),
-                ElevatedButton(
-                  onPressed: () {
-                    spinwheel();
-                  },
-                  child: const Text("NOCHMAL!"),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 25, left: 25),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        spinwheel();
+                        wheelLogic.reset();
+                        setState(() {
+                          numberOfSections = 0;
+                        });
+                      },
+                      child: const Text("Zurücksetzen!"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 179, 38, 30),
+                      ),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        spinwheel();
+                      },
+                      child: const Text("NOCHMAL!"),
+                    ),
+                  ],
                 ),
-              ]))
-        ]),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

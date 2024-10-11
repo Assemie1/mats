@@ -36,8 +36,7 @@ var myTheme = ThemeData(
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: Colors.white,
       filled: true,
-      labelStyle: TextStyle(color: Color.fromARGB(255, 102, 85, 143)),
-      helperStyle: TextStyle(color: Color.fromARGB(255, 102, 85, 143)),
+      helperStyle: TextStyle(color: Colors.white),
       hintStyle: TextStyle(color: Color.fromARGB(255, 102, 85, 143)),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
