@@ -99,25 +99,15 @@ class OperatorState extends State<Operator> {
                     randomAttacker();
                   },
                   child: Container(
-                      width: 160,
-                      height: 160,
-                      decoration: BoxDecoration(
+                    width: 160,
+                    height: 160,
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: const Color.fromARGB(255, 217, 217, 217),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          "Attack",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 40,
-                          ),
-                          maxLines: 4,
-                          wrapWords: false,
-                        ),
-                      )),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/attacker.png'),
+                        )),
+                  ),
                 ),
                 Spacer(),
                 GestureDetector(
@@ -125,25 +115,15 @@ class OperatorState extends State<Operator> {
                     randomDefender();
                   },
                   child: Container(
-                      width: 160,
-                      height: 160,
-                      decoration: BoxDecoration(
+                    width: 160,
+                    height: 160,
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: const Color.fromARGB(255, 217, 217, 217),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          "Defense",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 40,
-                          ),
-                          maxLines: 4,
-                          wrapWords: false,
-                        ),
-                      )),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/defender.png'),
+                        )),
+                  ),
                 )
               ])),
           const SizedBox(height: 75),
@@ -168,7 +148,6 @@ class OperatorState extends State<Operator> {
             ),
           ),
           const SizedBox(height: 10),
-
           Text(gadget,
               style: const TextStyle(
                 fontSize: 30,
