@@ -19,6 +19,7 @@ class CreateBookState extends State<CreateBook> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Buch erstellen"),
       ),

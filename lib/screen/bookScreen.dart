@@ -45,6 +45,7 @@ class BookScreenState extends State<BookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -66,7 +67,8 @@ class BookScreenState extends State<BookScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 readBooks.isEmpty
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(
+                        child: Text("Hier gibt es absolut nix zu sehen"))
                     : Expanded(
                         child: ListView.builder(
                           itemCount: readBooks.length,
@@ -156,6 +158,7 @@ class BookScreenState extends State<BookScreen> {
                           },
                         ),
                       ),
+                const SizedBox(height: 50),
                 Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
@@ -181,10 +184,12 @@ class BookScreenState extends State<BookScreen> {
               ],
             ),
             Column(
-              // Erstelle eine Column für den zweiten Tab
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 newBooks.isEmpty
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(
+                        child:
+                            Text("Stell dir einfach vor das hier was stehet"))
                     : Expanded(
                         child: ListView.builder(
                           itemCount: newBooks.length,
@@ -274,11 +279,14 @@ class BookScreenState extends State<BookScreen> {
                           },
                         ),
                       ),
+                const SizedBox(height: 50),
                 Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          top: 25, right: 25, bottom: 25), // Hier das Padding einstellen
+                          top: 25,
+                          right: 25,
+                          bottom: 25), // Hier das Padding einstellen
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(

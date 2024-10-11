@@ -4,7 +4,7 @@ import 'package:mats/screen/home.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: BookScreen(),
+    home: Home(),
     theme: myTheme,
   ));
 }
@@ -24,7 +24,7 @@ var myTheme = ThemeData(
   ),
   scaffoldBackgroundColor: const Color.fromARGB(255, 36, 44, 59),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Color.fromARGB(255, 102, 85, 143)),
+    bodyLarge: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
     bodyMedium: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.white),
     displayLarge: TextStyle(color: Colors.white),
@@ -53,9 +53,15 @@ var myTheme = ThemeData(
     labelColor: Color.fromARGB(255, 102, 85, 143),
     unselectedLabelColor: Colors.white,
   ),
-    checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Color.fromARGB(255, 102, 85, 143)),
-      fillColor: MaterialStateProperty.all(Colors.white),
+  checkboxTheme: CheckboxThemeData(
+    checkColor: MaterialStateProperty.all(Color.fromARGB(255, 102, 85, 143)),
+    fillColor: MaterialStateProperty.all(Colors.white),
+  ),
 
-    ),
+  dialogTheme: const DialogTheme(
+    backgroundColor: Color.fromARGB(255, 102, 85, 143),
+    contentTextStyle: TextStyle(color: Colors.white),
+    titleTextStyle: TextStyle(color: Colors.white),
+  ),
+  textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom( foregroundColor:  Colors.white)),
 );
