@@ -13,7 +13,16 @@ class BookManager {
 
   Future<File> get getFileNewBook async {
     final path = await directoryPath;
-    return File('$path/NewBook.json');
+    final file = File('$path/NewBook.json');
+
+    // Überprüfe, ob die Datei existiert, und erstelle sie gegebenenfalls.
+    if (!(await file.exists())) {
+      await file.create();
+      // Optional: Initialen JSON-Inhalt schreiben, z. B. eine leere Liste von Büchern.
+      await file.writeAsString('[]'); // Leere JSON-Liste als Platzhalter
+    }
+
+    return file;
   }
 
   Future<List<dynamic>> listNewBook(fileNewBook) async {
@@ -71,7 +80,15 @@ class BookManager {
 
   Future<File> get getFileReadBook async {
     final path = await directoryPath;
-    return File('$path/ReadBook.json');
+    final file = File('$path/ReadBook.json');
+
+    if (!(await file.exists())) {
+      await file.create();
+      // Optional: Initialen JSON-Inhalt schreiben, z. B. eine leere Liste von Büchern.
+      await file.writeAsString('[]'); // Leere JSON-Liste als Platzhalter
+    }
+
+    return file;
   }
 
   Future<List<dynamic>> listReadBook(fileReadBook) async {

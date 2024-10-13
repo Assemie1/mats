@@ -75,60 +75,74 @@ class BookScreenState extends State<BookScreen> {
                           itemBuilder: (context, index) {
                             final book = readBooks[index];
                             return Dismissible(
-                              key: Key(
-                                  book.BookName), // Verwende eine eindeutige ID
+                              key: Key(index
+                                  .toString()), // Verwende eine eindeutige ID
                               background: Container(
                                 color:
                                     Colors.red, // Hintergrundfarbe beim Wischen
-                                alignment: AlignmentDirectional.centerEnd,
+                                alignment: AlignmentDirectional.centerStart,
                                 child: const Padding(
-                                  padding: EdgeInsets.only(right: 16.0),
+                                  padding: EdgeInsets.only(left: 16.0),
                                   child:
                                       Icon(Icons.delete, color: Colors.white),
                                 ),
                               ),
+                              secondaryBackground: Container(
+                                color: Colors
+                                    .green, // Hintergrundfarbe beim Wischen
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(right: 16.0),
+                                  child: Icon(Icons.save, color: Colors.white),
+                                ),
+                              ),
                               confirmDismiss: (direction) async {
-                                // Zeige einen Bestätigungsdialog an
-                                return await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('Buch löschen'),
-                                        content: const Text(
-                                            'Möchten Sie dieses Buch wirklich löschen?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context)
-                                                    .pop(false),
-                                            child: const Text('Abbrechen'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(true),
-                                            child: const Text('Löschen'),
-                                          ),
-                                        ],
-                                      ),
-                                    ) ??
-                                    false;
+                                if (direction == DismissDirection.startToEnd) {
+                                  // Zeige einen Bestätigungsdialog an
+                                  return await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text('Buch löschen'),
+                                          content: const Text(
+                                              'Möchten Sie dieses Buch wirklich löschen?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(false),
+                                              child: const Text('Abbrechen'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(true),
+                                              child: const Text('Löschen'),
+                                            ),
+                                          ],
+                                        ),
+                                      ) ??
+                                      false;
+                                }
                               },
                               onDismissed: (direction) {
-                                // Entferne das Buch aus der Liste
-                                final removedBook = readBooks[index];
-                                setState(() {
-                                  readBooks.removeAt(index); // Buch entfernen
-                                });
+                                if (direction == DismissDirection.startToEnd) {
+                                  // Entferne das Buch aus der Liste
+                                  final removedBook = readBooks[index];
+                                  setState(() {
+                                    readBooks.removeAt(index); // Buch entfernen
+                                  });
 
-                                // Buchmanager zum Löschen aufrufen
-                                BookManager().deleteReadBook(index);
+                                  // Buchmanager zum Löschen aufrufen
+                                  BookManager().deleteReadBook(index);
 
-                                // Snackbar anzeigen
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        '${removedBook.BookName} wurde gelöscht'),
-                                  ),
-                                );
+                                  // Snackbar anzeigen
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${removedBook.BookName} wurde gelöscht'),
+                                    ),
+                                  );
+                                }
                               },
                               child: ListTile(
                                 title: Text(
