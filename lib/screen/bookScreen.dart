@@ -122,20 +122,26 @@ class BookScreenState extends State<BookScreen> {
                                         ),
                                       ) ??
                                       false;
+                                } else {
+                                  BookManager().writeNewBook(
+                                      readBooks[index].BookName,
+                                      readBooks[index].BookAuthor,
+                                      readBooks[index].BookDate);
+                                  setState(() {
+                                    readBooks.removeAt(index);
+                                  });
+                                  BookManager().deleteReadBook(index);
                                 }
                               },
                               onDismissed: (direction) {
                                 if (direction == DismissDirection.startToEnd) {
-                                  // Entferne das Buch aus der Liste
                                   final removedBook = readBooks[index];
                                   setState(() {
                                     readBooks.removeAt(index); // Buch entfernen
                                   });
 
-                                  // Buchmanager zum Löschen aufrufen
                                   BookManager().deleteReadBook(index);
 
-                                  // Snackbar anzeigen
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -200,48 +206,70 @@ class BookScreenState extends State<BookScreen> {
                                       Icon(Icons.delete, color: Colors.white),
                                 ),
                               ),
+                              secondaryBackground: Container(
+                                color: Colors
+                                    .green, // Hintergrundfarbe beim Wischen
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(right: 16.0),
+                                  child: Icon(Icons.save, color: Colors.white),
+                                ),
+                              ),
                               confirmDismiss: (direction) async {
-                                // Zeige einen Bestätigungsdialog an
-                                return await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text('Buch löschen'),
-                                        content: const Text(
-                                            'Möchten Sie dieses Buch wirklich löschen?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context)
-                                                    .pop(false),
-                                            child: const Text('Abbrechen'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(true),
-                                            child: const Text('Löschen'),
-                                          ),
-                                        ],
-                                      ),
-                                    ) ??
-                                    false;
+                                if (direction == DismissDirection.startToEnd) {
+                                  return await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text('Buch löschen'),
+                                          content: const Text(
+                                              'Möchten Sie dieses Buch wirklich löschen?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(false),
+                                              child: const Text('Abbrechen'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(true),
+                                              child: const Text('Löschen'),
+                                            ),
+                                          ],
+                                        ),
+                                      ) ??
+                                      false;
+                                } else {
+                                  BookManager().writeReadBook(
+                                      newBooks[index].BookName,
+                                      newBooks[index].BookAuthor,
+                                      newBooks[index].BookDate);
+                                  setState(() {
+                                    newBooks.removeAt(index);
+                                  });
+                                  BookManager().deleteNewBook(index);
+                                }
                               },
                               onDismissed: (direction) {
-                                // Entferne das Buch aus der Liste
-                                final removedBook = newBooks[index];
-                                setState(() {
-                                  newBooks.removeAt(index); // Buch entfernen
-                                });
+                                if (direction == DismissDirection.startToEnd) {
+                                  // Entferne das Buch aus der Liste
+                                  final removedBook = newBooks[index];
+                                  setState(() {
+                                    newBooks.removeAt(index); // Buch entfernen
+                                  });
 
-                                // Buchmanager zum Löschen aufrufen
-                                BookManager().deleteNewBook(index);
+                                  // Buchmanager zum Löschen aufrufen
+                                  BookManager().deleteNewBook(index);
 
-                                // Snackbar anzeigen
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        '${removedBook.BookName} wurde gelöscht'),
-                                  ),
-                                );
+                                  // Snackbar anzeigen
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${removedBook.BookName} wurde gelöscht'),
+                                    ),
+                                  );
+                                }
                               },
                               child: ListTile(
                                 title: Text(
