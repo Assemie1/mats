@@ -12,15 +12,30 @@ class BookScreen extends StatefulWidget {
   BookScreenState createState() => BookScreenState();
 }
 
-class BookScreenState extends State<BookScreen> {
+class BookScreenState extends State<BookScreen> with SingleTickerProviderStateMixin {
   List<Book> newBooks = [];
   List<Book> readBooks = [];
+  late TabController tabController;
 
-  @override
+@override
   void initState() {
     super.initState();
+    // TabController initialisieren
+    tabController = TabController(length: 2, vsync: this);
+
+    // Listener hinzufügen, um auf Tab-Wechsel zu reagieren
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        setState(() {
+          loadBooks();  // loadBooks() aufrufen bei Tab-Wechsel
+        });
+      }
+    });
+
+    // Initial die Bücher laden
     loadBooks();
   }
+
 
   Future<void> loadBooks() async {
     try {
@@ -50,8 +65,9 @@ class BookScreenState extends State<BookScreen> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
+            bottom: TabBar(
+              controller: tabController,
+              tabs: const [
                 Tab(
                   text: "Gelesen",
                 ),
@@ -62,7 +78,9 @@ class BookScreenState extends State<BookScreen> {
             ),
             title: const Text('Na schon wieder ein neues Buch?'),
           ),
-          body: TabBarView(children: [
+          body: TabBarView(
+            controller: tabController,
+            children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -133,7 +151,7 @@ class BookScreenState extends State<BookScreen> {
                                   BookManager().deleteReadBook(index);
                                 }
                               },
-                              onDismissed: (direction) {
+                              onDismissed: (direction) async {
                                 if (direction == DismissDirection.startToEnd) {
                                   final removedBook = readBooks[index];
                                   setState(() {
@@ -199,9 +217,9 @@ class BookScreenState extends State<BookScreen> {
                               background: Container(
                                 color:
                                     Colors.red, // Hintergrundfarbe beim Wischen
-                                alignment: AlignmentDirectional.centerEnd,
+                                alignment: AlignmentDirectional.centerStart,
                                 child: const Padding(
-                                  padding: EdgeInsets.only(right: 16.0),
+                                  padding: EdgeInsets.only(left: 16.0),
                                   child:
                                       Icon(Icons.delete, color: Colors.white),
                                 ),
