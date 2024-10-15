@@ -148,8 +148,15 @@ class _RotatingWheelState extends State<RotatingWheel>
                 ),
               ),
               const SizedBox(height: 25),
+              Transform.rotate(
+                angle: 3.14159, // 180 Grad in Bogenmaß (π)
+                child: CustomPaint(
+                  size: const Size(15, 15), // Größe der Canvas
+                  painter: ArrowTipPainter(),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 25, bottom: 25),
+                padding: const EdgeInsets.only(top: 5, bottom: 25),
                 child: GestureDetector(
                   onTap: _startRotation, // Start rotation on tap
                   child: AnimatedBuilder(
@@ -224,6 +231,31 @@ class _RotatingWheelState extends State<RotatingWheel>
   }
 }
 
+class ArrowTipPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Pfeilspitze zeichnen
+    Paint paint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    Path path = Path();
+    // Spitze definieren (Dreieck)
+    path.moveTo(size.width / 2, 0); // Obere Spitze
+    path.lineTo(0, size.height); // Linke Ecke
+    path.lineTo(size.width, size.height); // Rechte Ecke
+    path.close(); // Dreieck schließen
+
+    // Zeichne den Pfad auf die Leinwand
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
 class WheelPainter extends CustomPainter {
   final int numberOfSections;
   final List<Color> colors;
@@ -271,7 +303,7 @@ class WheelPainter extends CustomPainter {
         // Erstelle den Text
         final textSpan = TextSpan(
           text: labels[i],
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         );
 
         // Richte den Text aus
@@ -281,8 +313,8 @@ class WheelPainter extends CustomPainter {
         // Zeichne den Text in der Mitte des Segments
         canvas.save();
         canvas.translate(textX, textY);
-        canvas
-            .rotate(textAngle); // Text anpassen, sodass er richtig rotiert ist
+        canvas.rotate(
+            textAngle - pi); // Text anpassen, sodass er richtig rotiert ist
         textPainter.paint(
           canvas,
           Offset(-textPainter.width / 2, -textPainter.height / 2),
