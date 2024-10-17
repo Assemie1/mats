@@ -12,22 +12,24 @@ class BookScreen extends StatefulWidget {
   BookScreenState createState() => BookScreenState();
 }
 
-class BookScreenState extends State<BookScreen> with SingleTickerProviderStateMixin {
+class BookScreenState extends State<BookScreen>
+    with SingleTickerProviderStateMixin {
   List<Book> newBooks = [];
   List<Book> readBooks = [];
+  List<Book> readBooksfiltered = [];
+  TextEditingController editingController = TextEditingController();
   late TabController tabController;
 
-@override
+  @override
   void initState() {
     super.initState();
-    // TabController initialisieren
     tabController = TabController(length: 2, vsync: this);
 
     // Listener hinzufügen, um auf Tab-Wechsel zu reagieren
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
         setState(() {
-          loadBooks();  // loadBooks() aufrufen bei Tab-Wechsel
+          loadBooks(); // loadBooks() aufrufen bei Tab-Wechsel
         });
       }
     });
@@ -35,7 +37,6 @@ class BookScreenState extends State<BookScreen> with SingleTickerProviderStateMi
     // Initial die Bücher laden
     loadBooks();
   }
-
 
   Future<void> loadBooks() async {
     try {
@@ -51,10 +52,17 @@ class BookScreenState extends State<BookScreen> with SingleTickerProviderStateMi
         newBooks = jsonListNewBook.map((json) => Book.fromJson(json)).toList();
         readBooks =
             jsonListReadBook.map((json) => Book.fromJson(json)).toList();
+        readBooksfiltered = readBooks;
       });
     } catch (e) {
       print('Error reading JSON file: $e');
     }
+  }
+
+  void filterSearchResults(query){
+    setState(() {
+      readBooksfiltered = readBooks.where((readBooks) => readBooks.BookName.toLowerCase().contains(query.toLowerCase())).toList();
+    });
   }
 
   @override
@@ -78,20 +86,29 @@ class BookScreenState extends State<BookScreen> with SingleTickerProviderStateMi
             ),
             title: const Text('Na schon wieder ein neues Buch?'),
           ),
-          body: TabBarView(
-            controller: tabController,
-            children: [
+          body: TabBarView(controller: tabController, children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                readBooks.isEmpty
+                TextField(
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController,
+                  decoration: const InputDecoration(
+                    labelText: "Search",
+                    hintText: "Search",
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+                readBooksfiltered.isEmpty
                     ? const Center(
                         child: Text("Hier gibt es absolut nix zu sehen"))
                     : Expanded(
                         child: ListView.builder(
-                          itemCount: readBooks.length,
+                          itemCount: readBooksfiltered.length,
                           itemBuilder: (context, index) {
-                            final book = readBooks[index];
+                            final book = readBooksfiltered[index];
                             return Dismissible(
                               key: Key(index
                                   .toString()), // Verwende eine eindeutige ID
