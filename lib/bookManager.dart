@@ -56,8 +56,7 @@ class BookManager {
 
     List<dynamic> jsonListNewBook = await listNewBook(fileNewBook);
     jsonListNewBook.add(newBook.toJson());
-    print(jsonListNewBook);
-    print("-------------------------------------");
+    jsonListNewBook.sort((a, b) => a['BookAuthor'].compareTo(b['BookAuthor']));
     await fileNewBook.writeAsString(json.encode(jsonListNewBook), flush: true);
   }
 
@@ -122,8 +121,7 @@ class BookManager {
 
     List<dynamic> jsonListReadBook = await listReadBook(fileReadBook);
     jsonListReadBook.add(ReadBook.toJson());
-    print(jsonListReadBook);
-    print("-------------------------------------");
+    jsonListReadBook.sort((a, b) => a['BookAuthor'].compareTo(b['BookAuthor']));
     await fileReadBook.writeAsString(json.encode(jsonListReadBook),
         flush: true);
   }

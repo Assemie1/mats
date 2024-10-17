@@ -111,11 +111,11 @@ class HomeState extends State<Home> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
-                    child:
-                        Image.asset('assets/book.png', fit: BoxFit.contain),
+                    child: Image.asset('assets/book.png', fit: BoxFit.contain),
                   ),
                 ),
               ),
+              const SizedBox(width: 25),
             ])),
         const Padding(
           padding: EdgeInsets.only(left: 25, top: 75),

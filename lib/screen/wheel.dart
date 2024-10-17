@@ -236,7 +236,7 @@ class ArrowTipPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Pfeilspitze zeichnen
     Paint paint = Paint()
-      ..color = Colors.white
+      ..color = const Color.fromARGB(255, 255, 255, 255)
       ..style = PaintingStyle.fill;
 
     Path path = Path();
