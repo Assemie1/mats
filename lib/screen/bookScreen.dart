@@ -67,7 +67,7 @@ class BookScreenState extends State<BookScreen>
       readBooksfiltered = readBooks
           .where((readBooks) =>
               readBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
-              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())) 
+              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -76,7 +76,7 @@ class BookScreenState extends State<BookScreen>
     setState(() {
       newBooksfiltered = newBooks
           .where((newBooks) =>
-              newBooks.BookName.toLowerCase().contains(query.toLowerCase())||
+              newBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
               newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -224,19 +224,33 @@ class BookScreenState extends State<BookScreen>
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  book.BookAuthor,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  book.BookDate,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .stretch, // Macht die Texte über die gesamte Breite
+                                  children: [
+                                    Align(
+                                      alignment: Alignment
+                                          .centerLeft, // Links ausgerichtet
+                                      child: Text(
+                                        book.BookAuthor,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment
+                                          .centerRight, // Rechts ausgerichtet
+                                      child: Text(
+                                        book.BookDate,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
@@ -367,19 +381,33 @@ class BookScreenState extends State<BookScreen>
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  book.BookAuthor,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  book.BookDate,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .stretch, // Macht die Texte über die gesamte Breite
+                                  children: [
+                                    Align(
+                                      alignment: Alignment
+                                          .centerLeft, // Links ausgerichtet
+                                      child: Text(
+                                        book.BookAuthor,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment
+                                          .centerRight, // Rechts ausgerichtet
+                                      child: Text(
+                                        book.BookDate,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
