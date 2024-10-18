@@ -31,6 +31,7 @@ class BookScreenState extends State<BookScreen>
       if (tabController.indexIsChanging) {
         setState(() {
           loadBooks(); // loadBooks() aufrufen bei Tab-Wechsel
+          editingController.clear();
         });
       }
     });
@@ -54,6 +55,7 @@ class BookScreenState extends State<BookScreen>
         readBooks =
             jsonListReadBook.map((json) => Book.fromJson(json)).toList();
         readBooksfiltered = readBooks;
+        newBooksfiltered = newBooks;
       });
     } catch (e) {
       print('Error reading JSON file: $e');
@@ -64,7 +66,8 @@ class BookScreenState extends State<BookScreen>
     setState(() {
       readBooksfiltered = readBooks
           .where((readBooks) =>
-              readBooks.BookName.toLowerCase().contains(query.toLowerCase()))
+              readBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
+              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())) 
           .toList();
     });
   }
@@ -73,7 +76,8 @@ class BookScreenState extends State<BookScreen>
     setState(() {
       newBooksfiltered = newBooks
           .where((newBooks) =>
-              newBooks.BookName.toLowerCase().contains(query.toLowerCase()))
+              newBooks.BookName.toLowerCase().contains(query.toLowerCase())||
+              newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -101,12 +105,13 @@ class BookScreenState extends State<BookScreen>
           ),
           body: TabBarView(controller: tabController, children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
                   onChanged: (value) {
                     readFilterSearchResults(value);
                   },
+                  style:
+                      const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
                   controller: editingController,
                   decoration: const InputDecoration(
                     labelText: "Search",
@@ -114,6 +119,7 @@ class BookScreenState extends State<BookScreen>
                     prefixIcon: Icon(Icons.search),
                   ),
                 ),
+                const SizedBox(height: 25),
                 readBooksfiltered.isEmpty
                     ? const Center(
                         child: Text("Hier gibt es absolut nix zu sehen"))
@@ -174,15 +180,15 @@ class BookScreenState extends State<BookScreen>
                                 } else {
                                   final removedBook = readBooksfiltered[index];
                                   BookManager().writeNewBook(
-                                      readBooksfiltered[index].BookName,
+                                      readBooksfiltered[index].BookID,
                                       readBooksfiltered[index].BookName,
                                       readBooksfiltered[index].BookAuthor,
                                       readBooksfiltered[index].BookDate);
                                   setState(() {
                                     readBooksfiltered.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                     readBooks.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                   });
                                   BookManager()
                                       .deleteReadBook(removedBook.BookID);
@@ -190,12 +196,12 @@ class BookScreenState extends State<BookScreen>
                               },
                               onDismissed: (direction) async {
                                 if (direction == DismissDirection.startToEnd) {
-                                  final removedBook = readBooks[index];
+                                  final removedBook = readBooksfiltered[index];
                                   setState(() {
                                     readBooksfiltered.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                     readBooks.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                   });
 
                                   BookManager()
@@ -241,8 +247,21 @@ class BookScreenState extends State<BookScreen>
               ],
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                TextField(
+                  onChanged: (value) {
+                    newFilterSearchResults(value);
+                  },
+                  style:
+                      const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
+                  controller: editingController,
+                  decoration: const InputDecoration(
+                    labelText: "Search",
+                    hintText: "Search",
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+                const SizedBox(height: 25),
                 newBooksfiltered.isEmpty
                     ? const Center(
                         child:
@@ -254,7 +273,7 @@ class BookScreenState extends State<BookScreen>
                             final book = newBooksfiltered[index];
                             return Dismissible(
                               key: Key(
-                                  newBooksfiltered[index].BookID.toString()), 
+                                  newBooksfiltered[index].BookID.toString()),
                               background: Container(
                                 color:
                                     Colors.red, // Hintergrundfarbe beim Wischen
@@ -308,9 +327,9 @@ class BookScreenState extends State<BookScreen>
                                       newBooksfiltered[index].BookDate);
                                   setState(() {
                                     newBooksfiltered.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                     newBooks.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                   });
                                   BookManager()
                                       .deleteNewBook(removedBook.BookID);
@@ -322,9 +341,10 @@ class BookScreenState extends State<BookScreen>
                                   final removedBook = newBooksfiltered[index];
                                   setState(() {
                                     newBooksfiltered.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);
+                                        book.BookID == removedBook.BookID);
                                     newBooks.removeWhere((book) =>
-                                        book.BookID == readBooks[index].BookID);                                  });
+                                        book.BookID == removedBook.BookID);
+                                  });
 
                                   // Buchmanager zum Löschen aufrufen
                                   BookManager()

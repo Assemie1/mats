@@ -53,9 +53,10 @@ class BookManager {
   Future writeNewBook(newBookID, String newBookName, String newBookAuthor,
       String newBookDate) async {
     newBookID ??= uuid.v1();
+    print(newBookID);
     final Book newBook =
         Book(newBookID, newBookName, newBookAuthor, newBookDate);
-
+    print(newBook);
     File fileNewBook;
 
     fileNewBook = await getFileNewBook;
@@ -79,8 +80,7 @@ class BookManager {
     // Entferne das Buch mit der passenden BookID
     jsonListNewBook.removeWhere((book) => book['BookID'] == bookID);
 
-    await fileNewBook.writeAsString(json.encode(jsonListNewBook),
-        flush: true);
+    await fileNewBook.writeAsString(json.encode(jsonListNewBook), flush: true);
   }
 
 //------------------------------------------------------Read Book----------------------------------------

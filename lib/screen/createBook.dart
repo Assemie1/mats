@@ -36,7 +36,7 @@ class CreateBookState extends State<CreateBook> {
                         const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      helperText: "Buch Name",
+                      helperText: "Buch Titel",
                       hintText: 'Harry Potter ...',
                       fillColor: Color.fromARGB(255, 217, 217, 217),
                       filled: true,
@@ -55,8 +55,8 @@ class CreateBookState extends State<CreateBook> {
                         const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      helperText: "Autor",
-                      hintText: 'George RR Martin',
+                      helperText: "Autor Nachname, Vorname",
+                      hintText: 'Winkelmann, Andreas',
                       fillColor: Color.fromARGB(255, 217, 217, 217),
                       filled: true,
                     ),
