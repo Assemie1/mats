@@ -1,16 +1,19 @@
 class Book {
+  String BookID;
   String BookName;
   String BookAuthor;
   String BookDate;
 
-  Book(this.BookName, this.BookAuthor, this.BookDate);
+  Book(this.BookID, this.BookName, this.BookAuthor, this.BookDate);
 
   Book.fromJson(Map<String, dynamic> json)
-      : BookName = json['BookName'],
+      : BookID = json['BookID'],
+        BookName = json['BookName'],
         BookAuthor = json['BookAuthor'],
         BookDate = json['BookDate'];
 
   Map<String, dynamic> toJson() => {
+        'BookID': BookID,
         'BookName': BookName,
         'BookAuthor': BookAuthor,
         'BookDate': BookDate,
@@ -18,6 +21,6 @@ class Book {
 
   @override
   String toString() {
-    return 'Book{BookName: $BookName, BookAuthor: $BookAuthor, BookDate: $BookDate}';
+    return 'Book{BookID: $BookID, BookName: $BookName, BookAuthor: $BookAuthor, BookDate: $BookDate}';
   }
 }

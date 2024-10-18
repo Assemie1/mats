@@ -4,7 +4,7 @@ import 'package:mats/screen/home.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: BookScreen(),
+    home: Home(),
     theme: myTheme,
   ));
 }

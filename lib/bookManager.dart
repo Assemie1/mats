@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:mats/model/Book.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class BookManager {
+  var uuid = Uuid();
+
   Future<String> get directoryPath async {
     Directory directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -46,9 +50,11 @@ class BookManager {
     return jsonListNewBook;
   }
 
-  Future writeNewBook(
-      String newBookName, String newBookAuthor, String newBookDate) async {
-    final Book newBook = Book(newBookName, newBookAuthor, newBookDate);
+  Future writeNewBook(newBookID, String newBookName, String newBookAuthor,
+      String newBookDate) async {
+    newBookID ??= uuid.v1();
+    final Book newBook =
+        Book(newBookID, newBookName, newBookAuthor, newBookDate);
 
     File fileNewBook;
 
@@ -65,14 +71,16 @@ class BookManager {
     await fileNewBook.writeAsString("", flush: true);
   }
 
-  Future deleteNewBook(newBookIndex) async {
+  Future deleteNewBook(bookID) async {
     File fileNewBook = await getFileNewBook;
 
     List<dynamic> jsonListNewBook = await listNewBook(fileNewBook);
 
-    jsonListNewBook.removeAt(newBookIndex);
+    // Entferne das Buch mit der passenden BookID
+    jsonListNewBook.removeWhere((book) => book['BookID'] == bookID);
 
-    await fileNewBook.writeAsString(json.encode(jsonListNewBook), flush: true);
+    await fileNewBook.writeAsString(json.encode(jsonListNewBook),
+        flush: true);
   }
 
 //------------------------------------------------------Read Book----------------------------------------
@@ -111,9 +119,11 @@ class BookManager {
     return jsonListReadBook;
   }
 
-  Future writeReadBook(
-      String ReadBookName, String ReadBookAuthor, String ReadBookDate) async {
-    final Book ReadBook = Book(ReadBookName, ReadBookAuthor, ReadBookDate);
+  Future writeReadBook(readBookID, String ReadBookName, String ReadBookAuthor,
+      String ReadBookDate) async {
+    readBookID ??= uuid.v1();
+    final Book ReadBook =
+        Book(readBookID, ReadBookName, ReadBookAuthor, ReadBookDate);
 
     File fileReadBook;
 
@@ -131,12 +141,13 @@ class BookManager {
     await fileReadBook.writeAsString("", flush: true);
   }
 
-  Future deleteReadBook(ReadBookIndex) async {
+  Future deleteReadBook(String bookID) async {
     File fileReadBook = await getFileReadBook;
 
     List<dynamic> jsonListReadBook = await listReadBook(fileReadBook);
 
-    jsonListReadBook.removeAt(ReadBookIndex);
+    // Entferne das Buch mit der passenden BookID
+    jsonListReadBook.removeWhere((book) => book['BookID'] == bookID);
 
     await fileReadBook.writeAsString(json.encode(jsonListReadBook),
         flush: true);

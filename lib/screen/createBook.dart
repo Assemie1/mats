@@ -103,10 +103,10 @@ class CreateBookState extends State<CreateBook> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             if (!bookState) {
-                              bookManager.writeNewBook(
+                              bookManager.writeNewBook(null,
                                   newBookName, newBookAuthor, newBookDate);
                             } else {
-                              bookManager.writeReadBook(
+                              bookManager.writeReadBook(null,
                                   newBookName, newBookAuthor, newBookDate);
                             }
                             formKey.currentState!.reset();

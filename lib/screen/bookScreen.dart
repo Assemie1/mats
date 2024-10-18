@@ -17,6 +17,7 @@ class BookScreenState extends State<BookScreen>
   List<Book> newBooks = [];
   List<Book> readBooks = [];
   List<Book> readBooksfiltered = [];
+  List<Book> newBooksfiltered = [];
   TextEditingController editingController = TextEditingController();
   late TabController tabController;
 
@@ -59,9 +60,21 @@ class BookScreenState extends State<BookScreen>
     }
   }
 
-  void filterSearchResults(query){
+  void readFilterSearchResults(query) {
     setState(() {
-      readBooksfiltered = readBooks.where((readBooks) => readBooks.BookName.toLowerCase().contains(query.toLowerCase())).toList();
+      readBooksfiltered = readBooks
+          .where((readBooks) =>
+              readBooks.BookName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+  void newFilterSearchResults(query) {
+    setState(() {
+      newBooksfiltered = newBooks
+          .where((newBooks) =>
+              newBooks.BookName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -92,7 +105,7 @@ class BookScreenState extends State<BookScreen>
               children: [
                 TextField(
                   onChanged: (value) {
-                    filterSearchResults(value);
+                    readFilterSearchResults(value);
                   },
                   controller: editingController,
                   decoration: const InputDecoration(
@@ -110,7 +123,8 @@ class BookScreenState extends State<BookScreen>
                           itemBuilder: (context, index) {
                             final book = readBooksfiltered[index];
                             return Dismissible(
-                              key: Key(index
+                              key: Key(readBooksfiltered[index]
+                                  .BookID
                                   .toString()), // Verwende eine eindeutige ID
                               background: Container(
                                 color:
@@ -158,24 +172,34 @@ class BookScreenState extends State<BookScreen>
                                       ) ??
                                       false;
                                 } else {
+                                  final removedBook = readBooksfiltered[index];
                                   BookManager().writeNewBook(
-                                      readBooks[index].BookName,
-                                      readBooks[index].BookAuthor,
-                                      readBooks[index].BookDate);
+                                      readBooksfiltered[index].BookName,
+                                      readBooksfiltered[index].BookName,
+                                      readBooksfiltered[index].BookAuthor,
+                                      readBooksfiltered[index].BookDate);
                                   setState(() {
-                                    readBooks.removeAt(index);
+                                    readBooksfiltered.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
+                                    readBooks.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
                                   });
-                                  BookManager().deleteReadBook(index);
+                                  BookManager()
+                                      .deleteReadBook(removedBook.BookID);
                                 }
                               },
                               onDismissed: (direction) async {
                                 if (direction == DismissDirection.startToEnd) {
                                   final removedBook = readBooks[index];
                                   setState(() {
-                                    readBooks.removeAt(index); // Buch entfernen
+                                    readBooksfiltered.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
+                                    readBooks.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
                                   });
 
-                                  BookManager().deleteReadBook(index);
+                                  BookManager()
+                                      .deleteReadBook(removedBook.BookID);
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -219,18 +243,18 @@ class BookScreenState extends State<BookScreen>
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                newBooks.isEmpty
+                newBooksfiltered.isEmpty
                     ? const Center(
                         child:
                             Text("Stell dir einfach vor das hier was stehet"))
                     : Expanded(
                         child: ListView.builder(
-                          itemCount: newBooks.length,
+                          itemCount: newBooksfiltered.length,
                           itemBuilder: (context, index) {
-                            final book = newBooks[index];
+                            final book = newBooksfiltered[index];
                             return Dismissible(
                               key: Key(
-                                  book.BookName), // Verwende eine eindeutige ID
+                                  newBooksfiltered[index].BookID.toString()), 
                               background: Container(
                                 color:
                                     Colors.red, // Hintergrundfarbe beim Wischen
@@ -276,27 +300,35 @@ class BookScreenState extends State<BookScreen>
                                       ) ??
                                       false;
                                 } else {
+                                  final removedBook = newBooksfiltered[index];
                                   BookManager().writeReadBook(
-                                      newBooks[index].BookName,
-                                      newBooks[index].BookAuthor,
-                                      newBooks[index].BookDate);
+                                      newBooksfiltered[index].BookID,
+                                      newBooksfiltered[index].BookName,
+                                      newBooksfiltered[index].BookAuthor,
+                                      newBooksfiltered[index].BookDate);
                                   setState(() {
-                                    newBooks.removeAt(index);
+                                    newBooksfiltered.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
+                                    newBooks.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
                                   });
-                                  BookManager().deleteNewBook(index);
+                                  BookManager()
+                                      .deleteNewBook(removedBook.BookID);
                                 }
                               },
                               onDismissed: (direction) {
                                 if (direction == DismissDirection.startToEnd) {
                                   // Entferne das Buch aus der Liste
-                                  final removedBook = newBooks[index];
+                                  final removedBook = newBooksfiltered[index];
                                   setState(() {
-                                    newBooks.removeAt(index); // Buch entfernen
-                                  });
+                                    newBooksfiltered.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);
+                                    newBooks.removeWhere((book) =>
+                                        book.BookID == readBooks[index].BookID);                                  });
 
                                   // Buchmanager zum Löschen aufrufen
-                                  BookManager().deleteNewBook(index);
-
+                                  BookManager()
+                                      .deleteNewBook(removedBook.BookID);
                                   // Snackbar anzeigen
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
