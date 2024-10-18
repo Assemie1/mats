@@ -74,8 +74,8 @@ class CreateBookState extends State<CreateBook> {
                         const TextStyle(color: Color.fromARGB(255, 36, 44, 59)),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      helperText: "Erscheinungsdatum",
-                      hintText: '1.2.2022',
+                      helperText: "Erscheinungsdatum/Buch Serie/Teil",
+                      hintText: 'Harry Potter 3, 08.06.1999',
                       fillColor: Color.fromARGB(255, 217, 217, 217),
                       filled: true,
                     ),
