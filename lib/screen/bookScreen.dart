@@ -67,7 +67,8 @@ class BookScreenState extends State<BookScreen>
       readBooksfiltered = readBooks
           .where((readBooks) =>
               readBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
-              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()))
+              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())||
+              readBooks.BookDate.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -77,7 +78,8 @@ class BookScreenState extends State<BookScreen>
       newBooksfiltered = newBooks
           .where((newBooks) =>
               newBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
-              newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()))
+              newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())||
+              newBooks.BookDate.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
