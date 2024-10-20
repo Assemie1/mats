@@ -67,7 +67,8 @@ class BookScreenState extends State<BookScreen>
       readBooksfiltered = readBooks
           .where((readBooks) =>
               readBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
-              readBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())||
+              readBooks.BookAuthor.toLowerCase()
+                  .contains(query.toLowerCase()) ||
               readBooks.BookDate.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -78,7 +79,7 @@ class BookScreenState extends State<BookScreen>
       newBooksfiltered = newBooks
           .where((newBooks) =>
               newBooks.BookName.toLowerCase().contains(query.toLowerCase()) ||
-              newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase())||
+              newBooks.BookAuthor.toLowerCase().contains(query.toLowerCase()) ||
               newBooks.BookDate.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -194,6 +195,12 @@ class BookScreenState extends State<BookScreen>
                                   });
                                   BookManager()
                                       .deleteReadBook(removedBook.BookID);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${removedBook.BookName} wurde nach "Zu lesen" verschoben'),
+                                    ),
+                                  );
                                 }
                               },
                               onDismissed: (direction) async {
@@ -349,6 +356,12 @@ class BookScreenState extends State<BookScreen>
                                   });
                                   BookManager()
                                       .deleteNewBook(removedBook.BookID);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${removedBook.BookName} wurde nach "Gelesen" verschoben'),
+                                    ),
+                                  );
                                 }
                               },
                               onDismissed: (direction) {
