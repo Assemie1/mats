@@ -131,142 +131,180 @@ class BookScreenState extends State<BookScreen>
                           itemCount: readBooksfiltered.length,
                           itemBuilder: (context, index) {
                             final book = readBooksfiltered[index];
-                            return Dismissible(
-                              key: Key(readBooksfiltered[index]
-                                  .BookID
-                                  .toString()), // Verwende eine eindeutige ID
-                              background: Container(
-                                color:
-                                    Colors.red, // Hintergrundfarbe beim Wischen
-                                alignment: AlignmentDirectional.centerStart,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(left: 16.0),
-                                  child:
-                                      Icon(Icons.delete, color: Colors.white),
-                                ),
-                              ),
-                              secondaryBackground: Container(
-                                color: Colors
-                                    .green, // Hintergrundfarbe beim Wischen
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 16.0),
-                                  child: Icon(Icons.save, color: Colors.white),
-                                ),
-                              ),
-                              confirmDismiss: (direction) async {
-                                if (direction == DismissDirection.startToEnd) {
-                                  // Zeige einen Bestätigungsdialog an
-                                  return await showDialog<bool>(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Text('Buch löschen'),
-                                          content: const Text(
-                                              'Möchten Sie dieses Buch wirklich löschen?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.of(context)
-                                                      .pop(false),
-                                              child: const Text('Abbrechen'),
+                            double topPadding = 15;
+                            if (index >0 && book.BookAuthor ==
+                                readBooksfiltered[index - 1].BookAuthor) {
+                              topPadding = 5;
+                            } else {
+                              topPadding = 15;
+                            }
+                            return Padding(
+                                padding: EdgeInsets.only(
+                                    top: topPadding, left: 5, right: 5),
+                                child: Container(
+                                    width: 400,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: const Color.fromARGB(
+                                          255, 102, 85, 143),
+                                    ),
+                                    child: Dismissible(
+                                      key: Key(readBooksfiltered[index]
+                                          .BookID
+                                          .toString()), // Verwende eine eindeutige ID
+                                      background: Container(
+                                        color: Colors
+                                            .red, // Hintergrundfarbe beim Wischen
+                                        alignment:
+                                            AlignmentDirectional.centerStart,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(left: 16.0),
+                                          child: Icon(Icons.delete,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      secondaryBackground: Container(
+                                        color: Colors
+                                            .green, // Hintergrundfarbe beim Wischen
+                                        alignment:
+                                            AlignmentDirectional.centerEnd,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(right: 16.0),
+                                          child: Icon(Icons.save,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      confirmDismiss: (direction) async {
+                                        if (direction ==
+                                            DismissDirection.startToEnd) {
+                                          // Zeige einen Bestätigungsdialog an
+                                          return await showDialog<bool>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: const Text(
+                                                      'Buch löschen'),
+                                                  content: const Text(
+                                                      'Möchten Sie dieses Buch wirklich löschen?'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(false),
+                                                      child: const Text(
+                                                          'Abbrechen'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(true),
+                                                      child:
+                                                          const Text('Löschen'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ) ??
+                                              false;
+                                        } else {
+                                          final removedBook =
+                                              readBooksfiltered[index];
+                                          BookManager().writeNewBook(
+                                              readBooksfiltered[index].BookID,
+                                              readBooksfiltered[index].BookName,
+                                              readBooksfiltered[index]
+                                                  .BookAuthor,
+                                              readBooksfiltered[index]
+                                                  .BookDate);
+                                          setState(() {
+                                            readBooksfiltered.removeWhere(
+                                                (book) =>
+                                                    book.BookID ==
+                                                    removedBook.BookID);
+                                            readBooks.removeWhere((book) =>
+                                                book.BookID ==
+                                                removedBook.BookID);
+                                          });
+                                          BookManager().deleteReadBook(
+                                              removedBook.BookID);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  '${removedBook.BookName} wurde nach "Zu lesen" verschoben'),
                                             ),
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.of(context)
-                                                      .pop(true),
-                                              child: const Text('Löschen'),
+                                          );
+                                        }
+                                      },
+                                      onDismissed: (direction) async {
+                                        if (direction ==
+                                            DismissDirection.startToEnd) {
+                                          final removedBook =
+                                              readBooksfiltered[index];
+                                          setState(() {
+                                            readBooksfiltered.removeWhere(
+                                                (book) =>
+                                                    book.BookID ==
+                                                    removedBook.BookID);
+                                            readBooks.removeWhere((book) =>
+                                                book.BookID ==
+                                                removedBook.BookID);
+                                          });
+
+                                          BookManager().deleteReadBook(
+                                              removedBook.BookID);
+
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  '${removedBook.BookName} wurde gelöscht'),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: ListTile(
+                                        title: Text(
+                                          book.BookName,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        subtitle: Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .stretch, // Macht die Texte über die gesamte Breite
+                                          children: [
+                                            Align(
+                                              alignment: Alignment
+                                                  .centerLeft, // Links ausgerichtet
+                                              child: Text(
+                                                book.BookAuthor,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment
+                                                  .centerRight, // Rechts ausgerichtet
+                                              child: Text(
+                                                book.BookDate,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ) ??
-                                      false;
-                                } else {
-                                  final removedBook = readBooksfiltered[index];
-                                  BookManager().writeNewBook(
-                                      readBooksfiltered[index].BookID,
-                                      readBooksfiltered[index].BookName,
-                                      readBooksfiltered[index].BookAuthor,
-                                      readBooksfiltered[index].BookDate);
-                                  setState(() {
-                                    readBooksfiltered.removeWhere((book) =>
-                                        book.BookID == removedBook.BookID);
-                                    readBooks.removeWhere((book) =>
-                                        book.BookID == removedBook.BookID);
-                                  });
-                                  BookManager()
-                                      .deleteReadBook(removedBook.BookID);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          '${removedBook.BookName} wurde nach "Zu lesen" verschoben'),
-                                    ),
-                                  );
-                                }
-                              },
-                              onDismissed: (direction) async {
-                                if (direction == DismissDirection.startToEnd) {
-                                  final removedBook = readBooksfiltered[index];
-                                  setState(() {
-                                    readBooksfiltered.removeWhere((book) =>
-                                        book.BookID == removedBook.BookID);
-                                    readBooks.removeWhere((book) =>
-                                        book.BookID == removedBook.BookID);
-                                  });
-
-                                  BookManager()
-                                      .deleteReadBook(removedBook.BookID);
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          '${removedBook.BookName} wurde gelöscht'),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: ListTile(
-                                title: Text(
-                                  book.BookName,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .stretch, // Macht die Texte über die gesamte Breite
-                                  children: [
-                                    Align(
-                                      alignment: Alignment
-                                          .centerLeft, // Links ausgerichtet
-                                      child: Text(
-                                        book.BookAuthor,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                        ),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment
-                                          .centerRight, // Rechts ausgerichtet
-                                      child: Text(
-                                        book.BookDate,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                                    )));
                           },
                         ),
                       ),
-                const SizedBox(height: 50),
+
               ],
             ),
             Column(
@@ -434,6 +472,7 @@ class BookScreenState extends State<BookScreen>
             ),
           ]),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.green,
             tooltip: 'Increment',
             onPressed: () {
               Navigator.push(
