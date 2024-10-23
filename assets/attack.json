@@ -100,7 +100,7 @@
         "operatorname": "Zofia",
         "primary": ["LMG-E", "M762"],
         "secondary": ["RG15"],
-        "gadget": ["Soft Breach Charge", "Claymore"]
+        "gadget": ["Hard Breach Charge", "Claymore"]
       },
       {
         "operatorname": "Dokkaebi",
@@ -154,7 +154,7 @@
         "operatorname": "Kali",
         "primary": ["CSRX 300"],
         "secondary": ["SPSMG9", "C75 Auto", "P226 MK 25"],
-        "gadget": ["Breach Charge", "Claymore"]
+        "gadget": ["Breach Charge", "Claymore", "Smoke Grenade"]
       },
       {
         "operatorname": "Iana",
